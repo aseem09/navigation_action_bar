@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class BarItem extends StatelessWidget {
   final int index;
@@ -128,7 +129,12 @@ class ActionBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+      ),
       alignment: Alignment.bottomCenter,
+      padding: EdgeInsets.all(10),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {

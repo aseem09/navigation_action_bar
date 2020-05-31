@@ -21,16 +21,16 @@ class NavigationActionBar extends StatefulWidget {
   NavigationActionBar({
     Key key,
     @required this.items,
-    this.index = 0,
     @required this.mainIndex,
+    @required this.subItems,
+    this.index = 0,
     this.accentColor = Colors.redAccent,
     this.backgroundColor = Colors.white,
     this.scaffoldColor = Colors.blueAccent,
     this.onTap,
-    this.subItems,
     this.animationDuration = const Duration(milliseconds: 300),
     this.context,
-    this.subItemSpacing = 100,
+    this.subItemSpacing = 150,
     this.animationCurve = Curves.bounceOut,
   })  : assert(context != null),
         assert(items != null),
@@ -41,8 +41,7 @@ class NavigationActionBar extends StatefulWidget {
         super(key: key);
 
   @override
-  NavigationActionBarState createState() =>
-      NavigationActionBarState();
+  NavigationActionBarState createState() => NavigationActionBarState();
 }
 
 class NavigationActionBarState extends State<NavigationActionBar>
@@ -55,8 +54,8 @@ class NavigationActionBarState extends State<NavigationActionBar>
   int length;
   OverlayEntry _overlayEntry;
   bool _overlayTrue = false;
-  double splitAngle;
-  double width;
+
+//  double splitAngle;
 
   @override
   void initState() {
@@ -66,9 +65,10 @@ class NavigationActionBarState extends State<NavigationActionBar>
     length = widget.items.length;
     position = widget.mainIndex / length;
 
-    if (widget.subItems != null) {
-      splitAngle = 180 / (widget.subItems.length + 1);
-    }
+//    if (widget.subItems != null) {
+//      splitAngle = 180 / (widget.subItems.length + 1);
+//    }
+
     translation = Tween<double>(
       begin: 0.0,
       end: 100.0,
@@ -87,7 +87,13 @@ class NavigationActionBarState extends State<NavigationActionBar>
 
   void _insertOverlay(BuildContext context) {
     _overlayEntry = OverlayEntry(builder: (context) {
-      width = MediaQuery.of(context).size.width / 2;
+      double mid = widget.subItems.length / 2;
+      if (widget.subItems.length % 2 == 1) {
+        mid = mid.floorToDouble();
+      } else {
+        mid = mid - 0.5;
+        print("sad" + mid.toString());
+      }
       return Container(
         height: 100,
         width: 100,
@@ -98,12 +104,17 @@ class NavigationActionBarState extends State<NavigationActionBar>
               int index = widget.subItems.indexOf(item);
               return Positioned(
                 bottom: 100,
-                left: 85.toDouble() + index * 100,
+                left: 0 +
+                    ((index > mid) ? (index - mid) * widget.subItemSpacing : 0)
+                        .toDouble(),
+                right: 0 +
+                    ((index < mid) ? (mid - index) * widget.subItemSpacing : 0)
+                        .toDouble(),
                 child: ScaleTransition(
                   scale: CurvedAnimation(
                     parent: controller,
                     curve: Interval(
-                      0 + (0.3 * (index)),
+                      0 + ((1 / length) * (index)),
                       1.0 - index / widget.subItems.length / 4,
                       curve: Curves.easeInCubic,
                     ),
@@ -115,19 +126,12 @@ class NavigationActionBarState extends State<NavigationActionBar>
                         controller.reverse();
                       });
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: ActionBarItem(
-                        onTap: _buttonTap,
-                        iconData: item.iconData,
-                        size: item.size,
-                        mainIndex: widget.mainIndex,
-                        index: index,
-                      ),
+                    child: ActionBarItem(
+                      onTap: _buttonTap,
+                      iconData: item.iconData,
+                      size: item.size,
+                      mainIndex: widget.mainIndex,
+                      index: index,
                     ),
                   ),
                 ),
