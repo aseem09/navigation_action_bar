@@ -1,7 +1,6 @@
 name: navigation_action_bar
 description: A beautiful modern Navigation Bar along with a Floating Action Bar.
 version: 0.0.1
-author: Aseem Verma <aseemverma999@gmail.com>
 homepage: https://github.com/aseem09/navigation_action_bar
 
 environment:
