@@ -15,27 +15,24 @@ class NavigationActionBar extends StatefulWidget {
   final Color scaffoldColor;
   final Duration animationDuration;
   final Curve animationCurve;
-  final ValueChanged<double> onTap;
+  final ValueChanged<double>? onTap;
   final List<NavBarItem> subItems;
 
   NavigationActionBar({
-    Key key,
-    @required this.items,
-    @required this.mainIndex,
-    @required this.subItems,
+    Key? key,
+    required this.items,
+    required this.mainIndex,
+    required this.subItems,
     this.index = 0,
     this.accentColor = Colors.redAccent,
     this.backgroundColor = Colors.white,
     this.scaffoldColor = Colors.blueAccent,
     this.onTap,
     this.animationDuration = const Duration(milliseconds: 300),
-    this.context,
+    required this.context,
     this.subItemSpacing = 150,
     this.animationCurve = Curves.bounceOut,
-  })  : assert(context != null),
-        assert(items != null),
-        assert(mainIndex != null),
-        assert(items.length >= 1),
+  })  : assert(items.length >= 1),
         assert(0 <= index && index < items.length),
         assert(0 <= mainIndex && mainIndex < items.length),
         super(key: key);
@@ -47,28 +44,20 @@ class NavigationActionBar extends StatefulWidget {
 class NavigationActionBarState extends State<NavigationActionBar>
     with SingleTickerProviderStateMixin {
   double height = 70;
-  int selectedIndex;
-  AnimationController controller;
-  Animation<double> translation;
-  double position;
-  int length;
-  OverlayEntry _overlayEntry;
+  late int selectedIndex;
+  late AnimationController controller;
+  late Animation<double> translation;
+  late double position;
+  late int length;
+  late OverlayEntry _overlayEntry;
   bool _overlayTrue = false;
-
-//  double splitAngle;
 
   @override
   void initState() {
     controller =
         AnimationController(vsync: this, duration: widget.animationDuration);
-
     length = widget.items.length;
     position = widget.mainIndex / length;
-
-//    if (widget.subItems != null) {
-//      splitAngle = 180 / (widget.subItems.length + 1);
-//    }
-
     translation = Tween<double>(
       begin: 0.0,
       end: 100.0,
@@ -206,7 +195,7 @@ class NavigationActionBarState extends State<NavigationActionBar>
 
   void _buttonTap(double index) {
     if (widget.onTap != null) {
-      widget.onTap(index);
+      widget.onTap!(index);
       setState(() {
         selectedIndex = index.floor();
       });
@@ -250,8 +239,8 @@ class NavBarItem {
   final Color unselectedColor;
 
   NavBarItem({
-    this.iconData,
-    this.size,
+    required this.iconData,
+    required this.size,
     this.selectedColor = Colors.redAccent,
     this.unselectedColor = Colors.black,
   });

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class BarItem extends StatelessWidget {
   final int index;
@@ -11,14 +10,14 @@ class BarItem extends StatelessWidget {
   final Color unselected;
 
   const BarItem({
-    Key key,
-    this.index,
-    this.onTap,
-    this.iconData,
-    this.size,
-    this.selected,
-    this.unselected,
-    this.currentIndex,
+    Key? key,
+    required this.index,
+    required this.onTap,
+    required this.iconData,
+    this.size = 30,
+    this.selected = Colors.blue,
+    this.unselected = Colors.grey,
+    required this.currentIndex,
   }) : super(key: key);
 
   @override
@@ -42,21 +41,19 @@ class BarItem extends StatelessWidget {
 class SpecialBarItem extends StatefulWidget {
   final int index;
   final ValueChanged<double> onTap;
-  final Duration duration;
   final IconData iconData;
   final double size;
   final Color color;
   final AnimationController animationController;
 
   const SpecialBarItem({
-    Key key,
-    this.color,
-    this.duration,
-    this.onTap,
-    this.index,
-    this.animationController,
-    this.iconData,
-    this.size,
+    Key? key,
+    required this.color,
+    required this.onTap,
+    required this.index,
+    required this.animationController,
+    required this.iconData,
+    required this.size,
   }) : super(key: key);
 
   @override
@@ -65,7 +62,7 @@ class SpecialBarItem extends StatefulWidget {
 
 class _SpecialBarItemState extends State<SpecialBarItem>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  late AnimationController controller;
 
   @override
   void initState() {
@@ -118,12 +115,12 @@ class ActionBarItem extends StatelessWidget {
   final double size;
 
   const ActionBarItem({
-    Key key,
-    this.index,
-    this.onTap,
-    this.mainIndex,
-    this.iconData,
-    this.size,
+    Key? key,
+    required this.index,
+    required this.onTap,
+    required this.mainIndex,
+    required this.iconData,
+    required this.size,
   }) : super(key: key);
 
   @override
