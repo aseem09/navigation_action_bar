@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Painter extends CustomPainter {
-  double startingPosition;
   Color color;
   TextDirection textDirection;
-  double offset;
+  late double offset;
+  late double startingPosition;
 
   Painter(double startingIndex, int length, this.color, this.textDirection) {
     final span = 1.0 / length;
