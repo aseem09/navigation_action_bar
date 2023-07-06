@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:navigation_action_bar/navigation_action_bar.dart';
 
-void main() => runApp(MaterialApp(home: CustomNavigationBar()));
+void main() => runApp(const MaterialApp(home: CustomNavigationBar()));
 
 class CustomNavigationBar extends StatefulWidget {
+  const CustomNavigationBar({super.key});
+
   @override
-  _CustomNavigationBarState createState() => _CustomNavigationBarState();
+  State<CustomNavigationBar> createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
@@ -44,7 +46,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         child: Center(
           child: Text(
             currentIndex.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 25,
             ),
