@@ -81,7 +81,7 @@ class NavigationActionBarState extends State<NavigationActionBar>
         mid = mid.floorToDouble();
       } else {
         mid = mid - 0.5;
-        print("sad" + mid.toString());
+        debugPrint("sad" + mid.toString());
       }
       return Container(
         height: 100,
@@ -201,7 +201,7 @@ class NavigationActionBarState extends State<NavigationActionBar>
       });
       _handleOverlay(index);
     }
-    print(index);
+    debugPrint("$index");
   }
 
   void _handleOverlay(double index) {
